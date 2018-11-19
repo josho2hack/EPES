@@ -1,4 +1,4 @@
-๏ปฟ@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Http.Features
 
 @{
     var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
@@ -12,7 +12,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#cookieConsent .navbar-collapse">
-                    <span class="sr-only">Toggle cookie consent banner</span>
+                    <span class="sr-only">@Localizer["สลับการนำทาง"]</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -21,11 +21,11 @@
             </div>
             <div class="collapse navbar-collapse">
                 <p class="navbar-text">
-                    Use this space to summarize your privacy and cookie use policy.
+                    @Localizer["เราทำการจัดเก็บข้อมูลเพิ่อให้บริการท่านด้วยความสะดวกและรักษาความลับตามมาตราฐานสากล (GDPR)"]
                 </p>
                 <div class="navbar-right">
-                    <a asp-controller="Home" asp-action="Privacy" class="btn btn-info navbar-btn">Learn More</a>
-                    <button type="button" class="btn btn-default navbar-btn" data-cookie-string="@cookieString">Accept</button>
+                    <a asp-controller="Home" asp-action="Privacy" class="btn btn-info navbar-btn">>@Localizer["เรียนรู้เพิ่มเติม"]</a>
+                    <button type="button" class="btn btn-default navbar-btn" data-cookie-string="@cookieString">@Localizer["ยอมรับ"]</button>
                 </div>
             </div>
         </div>

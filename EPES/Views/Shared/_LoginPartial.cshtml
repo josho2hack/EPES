@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -6,12 +6,12 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        <ul class="navbar-nav mr-auto navbar-right">
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@UserManager.GetUserName(User)</a>
             </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
+            <li class="nav-item">
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">@Localizer["ออกจากระบบ"]</button>
             </li>
         </ul>
     </form>
@@ -19,7 +19,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
-        <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+        <li><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">@Localizer["ลงทะเบียน"]</a></li>
+        <li><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">@Localizer["เข้าสู่ระบบ"]</a></li>
     </ul>
 }
