@@ -1,9 +1,7 @@
-﻿using System;
-using EPES.Areas.Identity.Data;
+﻿using EPES.Areas.Identity.Data;
 using EPES.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,12 +13,13 @@ namespace EPES.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
+            builder.ConfigureServices((context, services) =>
+            {
                 services.AddDbContext<EPESContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("EPESContextConnection")));
 
-                services.AddIdentity<IdentityUser, IdentityRole>()
+                services.AddIdentity<EPESUser, IdentityRole>()
                     //.AddDefaultIdentity<EPESUser>()
                     .AddEntityFrameworkStores<EPESContext>()
                     .AddDefaultUI()
