@@ -10,23 +10,29 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Localization;
 
 namespace EPES.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        //private readonly IStringLocalizer<RegisterModel> _localizer;
+
         private readonly SignInManager<EPESUser> _signInManager;
         private readonly UserManager<EPESUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
+            //IStringLocalizer<RegisterModel> localizer,
             UserManager<EPESUser> userManager,
             SignInManager<EPESUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
+            //_localizer = localizer;
+
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -40,20 +46,24 @@ namespace EPES.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "{0} จำเป็นต้องกรอกข้อมูล")]
+            [Display(Name = "รหัสผู้ใช้งาน (EOffice)")]
+            public string EOffice { get; set; }
+
+            [Required(ErrorMessage ="{0} จำเป็นต้องกรอกข้อมูล")]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "อีเมล์ (Email)")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "{0} จำเป็นต้องกรอกข้อมูล")]
+            [StringLength(100, ErrorMessage = "{0} ต้องไม่น้อยกว่า {2} ตัวอักษรและยาวได้สูงสุด {1} ตัวอักษร", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "พาสเวิร์ด (Password)")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "ยืนยันพาสเวิร์ด (Confirm password)")]
+            [Compare("Password", ErrorMessage = "พาสเวิร์ดและการยืนยันพาสเวิร์ดไม่ตรงกัน")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -67,7 +77,7 @@ namespace EPES.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new EPESUser { UserName = Input.Email, Email = Input.Email };
+                var user = new EPESUser { UserName = Input.EOffice, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
