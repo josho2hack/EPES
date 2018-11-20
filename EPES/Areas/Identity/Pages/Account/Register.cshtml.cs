@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using EPES.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
-using EPES.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace EPES.Areas.Identity.Pages.Account
 {
@@ -50,7 +47,7 @@ namespace EPES.Areas.Identity.Pages.Account
             [Display(Name = "รหัสผู้ใช้งาน (EOffice)")]
             public string EOffice { get; set; }
 
-            [Required(ErrorMessage ="{0} จำเป็นต้องกรอกข้อมูล")]
+            [Required(ErrorMessage = "{0} จำเป็นต้องกรอกข้อมูล")]
             [EmailAddress]
             [Display(Name = "อีเมล์ (Email)")]
             public string Email { get; set; }

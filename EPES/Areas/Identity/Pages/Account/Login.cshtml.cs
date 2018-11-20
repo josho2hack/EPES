@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using EPES.Areas.Identity.Data;
+﻿using EPES.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace EPES.Areas.Identity.Pages.Account
 {
@@ -89,19 +88,20 @@ namespace EPES.Areas.Identity.Pages.Account
 
                 if (udata.DataUser.Authen)
                 {
-                    var user = new EPESUser {
-                                                UserName = Input.EOffice,
-                                                   Title = udata.DataUser.TITLE,
-                                                   Email = udata.DataUser.EMAIL,
-                                                   PIN = udata.DataUser.PIN,
-                                                   FName = udata.DataUser.FNAME,
-                                                   LName = udata.DataUser.LNAME,
-                                                   PosName = udata.DataUser.POSITION_M,
-                                                   Class = udata.DataUser.CLASS_NEW,
-                                                   OfficeId = udata.DataUser.OFFICEID,
-                                                   OfficeName = udata.DataUser.OFFICENAME,
-                                                   GroupName = udata.DataUser.GROUPNAME
-                                            };
+                    var user = new EPESUser
+                    {
+                        UserName = Input.EOffice,
+                        Title = udata.DataUser.TITLE,
+                        Email = udata.DataUser.EMAIL,
+                        PIN = udata.DataUser.PIN,
+                        FName = udata.DataUser.FNAME,
+                        LName = udata.DataUser.LNAME,
+                        PosName = udata.DataUser.POSITION_M,
+                        Class = udata.DataUser.CLASS_NEW,
+                        OfficeId = udata.DataUser.OFFICEID,
+                        OfficeName = udata.DataUser.OFFICENAME,
+                        GroupName = udata.DataUser.GROUPNAME
+                    };
                     var resultCreate = await _userManager.CreateAsync(user, " ");
                     if (resultCreate.Succeeded)
                     {
@@ -125,7 +125,7 @@ namespace EPES.Areas.Identity.Pages.Account
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
-                
+
                 var result = await _signInManager.PasswordSignInAsync(Input.EOffice, " ", Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
