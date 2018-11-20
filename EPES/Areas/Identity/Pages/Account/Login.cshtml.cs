@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Text.Encodings.Web;
 
 namespace EPES.Areas.Identity.Pages.Account
 {
@@ -17,12 +19,21 @@ namespace EPES.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<EPESUser> _signInManager;
+        private readonly UserManager<EPESUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IEmailSender _emailSender;
 
-        public LoginModel(SignInManager<EPESUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(
+            SignInManager<EPESUser> signInManager,
+            UserManager<EPESUser> userManager,
+            ILogger<LoginModel> logger,
+            IEmailSender emailSender)
+
         {
+            _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -73,9 +84,49 @@ namespace EPES.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.EOffice, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                WSEOffice.AuthenUserEoffice1SoapClient soapClient = new WSEOffice.AuthenUserEoffice1SoapClient(WSEOffice.AuthenUserEoffice1SoapClient.EndpointConfiguration.AuthenUserEoffice1Soap);
+                WSEOffice.AuthenUserResponse udata = await soapClient.AuthenUserAsync("InternetUser", "InternetPass", Input.EOffice.ToUpper(), Input.Password);
+
+                if (udata.DataUser.Authen)
+                {
+                    var user = new EPESUser {
+                                                UserName = Input.EOffice,
+                                                   Title = udata.DataUser.TITLE,
+                                                   Email = udata.DataUser.EMAIL,
+                                                   PIN = udata.DataUser.PIN,
+                                                   FName = udata.DataUser.FNAME,
+                                                   LName = udata.DataUser.LNAME,
+                                                   PosName = udata.DataUser.POSITION_M,
+                                                   Class = udata.DataUser.CLASS_NEW,
+                                                   OfficeId = udata.DataUser.OFFICEID,
+                                                   OfficeName = udata.DataUser.OFFICENAME,
+                                                   GroupName = udata.DataUser.GROUPNAME
+                                            };
+                    var resultCreate = await _userManager.CreateAsync(user, " ");
+                    if (resultCreate.Succeeded)
+                    {
+                        _logger.LogInformation("User created a new account with password.");
+
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var callbackUrl = Url.Page(
+                            "/Account/ConfirmEmail",
+                            pageHandler: null,
+                            values: new { userId = user.Id, code = code },
+                            protocol: Request.Scheme);
+
+                        await _emailSender.SendEmailAsync(user.Email, "Confirm your email",
+                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
+                        //return LocalRedirect(returnUrl);
+                    }
+                    foreach (var error in resultCreate.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+                
+                var result = await _signInManager.PasswordSignInAsync(Input.EOffice, " ", Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

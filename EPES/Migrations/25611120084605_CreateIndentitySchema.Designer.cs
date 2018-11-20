@@ -4,14 +4,16 @@ using EPES.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EPES.Migrations
 {
     [DbContext(typeof(EPESContext))]
-    partial class EPESContextModelSnapshot : ModelSnapshot
+    [Migration("25611120084605_CreateIndentitySchema")]
+    partial class CreateIndentitySchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

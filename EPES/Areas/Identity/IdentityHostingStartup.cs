@@ -29,12 +29,12 @@ namespace EPES.Areas.Identity
                 services.Configure<IdentityOptions>(options =>
                 {
                     // Password settings.
-                    options.Password.RequireDigit = true;
-                    options.Password.RequireLowercase = true;
-                    options.Password.RequireNonAlphanumeric = true;
-                    options.Password.RequireUppercase = true;
-                    options.Password.RequiredLength = 6;
-                    options.Password.RequiredUniqueChars = 1;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 1;
+                    options.Password.RequiredUniqueChars = 0;
 
                     // Lockout settings.
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -42,8 +42,7 @@ namespace EPES.Areas.Identity
                     options.Lockout.AllowedForNewUsers = true;
 
                     // User settings.
-                    options.User.AllowedUserNameCharacters =
-                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                    //options.User.AllowedUserNameCharacters ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                     options.User.RequireUniqueEmail = false;
                 });
             });

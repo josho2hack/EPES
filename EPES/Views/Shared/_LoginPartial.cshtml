@@ -20,7 +20,9 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">@Localizer["ลงทะเบียน"]</a></li>
+        @{
+        //<li><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">@Localizer["ลงทะเบียน"]</a></li>
+        }
         <li><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">@Localizer["เข้าสู่ระบบ"]</a></li>
     </ul>
 }
