@@ -102,7 +102,7 @@ namespace EPES.Areas.Identity.Pages.Account
                         OfficeName = udata.DataUser.OFFICENAME,
                         GroupName = udata.DataUser.GROUPNAME
                     };
-                    var resultCreate = await _userManager.CreateAsync(user, " ");
+                    var resultCreate = await _userManager.CreateAsync(user, "P@ssw0rd");
                     if (resultCreate.Succeeded)
                     {
                         _logger.LogInformation("User created a new account with password.");
@@ -125,8 +125,13 @@ namespace EPES.Areas.Identity.Pages.Account
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login eoffice");
+                    return Page();
+                }
 
-                var result = await _signInManager.PasswordSignInAsync(Input.EOffice, " ", Input.RememberMe, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(Input.EOffice, "P@ssw0rd", Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
