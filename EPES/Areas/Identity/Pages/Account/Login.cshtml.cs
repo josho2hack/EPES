@@ -48,11 +48,11 @@ namespace EPES.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required(ErrorMessage = "{0} จำเป็นต้องกรอกข้อมูล")]
-            [Display(Name = "รหัสผู้ใช้งาน (EOffice)")]
+            [Display(Name = "รหัสผู้ใช้งาน (e-Office)")]
             public string EOffice { get; set; }
 
             [Required(ErrorMessage = "{0} จำเป็นต้องกรอกข้อมูล")]
-            [Display(Name = "พาสเวิร์ด (Password)")]
+            [Display(Name = "รหัสผ่าน (Password)")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 

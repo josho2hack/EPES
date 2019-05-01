@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EPES.Migrations
+namespace EPES.Areas.Identity.Data
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class EPESData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,17 @@ namespace EPES.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    FName = table.Column<string>(nullable: true),
+                    LName = table.Column<string>(nullable: true),
+                    PosName = table.Column<string>(nullable: true),
+                    OfficeId = table.Column<string>(nullable: true),
+                    OfficeName = table.Column<string>(nullable: true),
+                    PIN = table.Column<string>(nullable: true),
+                    Class = table.Column<string>(nullable: true),
+                    GroupName = table.Column<string>(nullable: true),
+                    DOB = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

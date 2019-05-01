@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Data.SqlClient;
 
 [assembly: HostingStartup(typeof(EPES.Areas.Identity.IdentityHostingStartup))]
 namespace EPES.Areas.Identity
@@ -14,10 +15,13 @@ namespace EPES.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
+            //var builderConnectSQL = new SqlConnectionStringBuilder(context.Configuration.GetConnectionString("EPESContextConnection"));
+
             builder.ConfigureServices((context, services) =>
             {
                 services.AddDbContext<EPESContext>(options =>
                     options.UseSqlServer(
+                        //SqlConnectionStringBuilder builderConnectSQL = new SqlConnectionStringBuilder(context.Configuration.GetConnectionString("EPESContextConnection"));
                         context.Configuration.GetConnectionString("EPESContextConnection")));
 
                 services.AddIdentity<EPESUser, IdentityRole>()

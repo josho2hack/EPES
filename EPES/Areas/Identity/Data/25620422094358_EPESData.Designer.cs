@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace EPES.Migrations
+namespace EPES.Areas.Identity.Data
 {
     [DbContext(typeof(EPESContext))]
-    [Migration("25611119061551_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("25620422094358_EPESData")]
+    partial class EPESData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -28,13 +28,23 @@ namespace EPES.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Class");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<DateTime>("DOB");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FName");
+
+                    b.Property<string>("GroupName");
+
+                    b.Property<string>("LName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -46,13 +56,23 @@ namespace EPES.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("OfficeId");
+
+                    b.Property<string>("OfficeName");
+
+                    b.Property<string>("PIN");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<string>("PosName");
+
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Title");
 
                     b.Property<bool>("TwoFactorEnabled");
 

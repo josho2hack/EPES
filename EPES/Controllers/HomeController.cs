@@ -18,23 +18,10 @@ namespace EPES.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Message"] = _localizer["ระบบการประเมินผลการปฏิบัติราชการของหน่วยงานภายใน"];
+            ViewData["Message"] = _localizer["ระบบรายงานประเมินผลการปฏิบัติราชการของหน่วยงานภายใน"];
             return View();
         }
 
-        public IActionResult Report()
-        {
-            ViewData["Message"] = _localizer["รายงานการประเมินผลการปฏิบัติราชการ"];
-
-            return View();
-        }
-
-        public IActionResult Entry()
-        {
-            ViewData["Message"] = _localizer["บันทึกข้อมูลการปฏิบัติราชการ"];
-
-            return View();
-        }
         public IActionResult SetCulture(string id = "th")
         {
             string culture = id;

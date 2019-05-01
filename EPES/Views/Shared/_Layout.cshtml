@@ -29,17 +29,40 @@
             </div>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["หน้าหลัก"] <span class="sr-only">(current)</span></a></li>
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Report">@Localizer["รายงาน"]</a></li>
+                    @*<li class="nav-item active"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["หน้าหลัก"] <span class="sr-only">(current)</span></a></li>*@
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">@Localizer["บันทึก"]</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">@Localizer["ข้อมูลพื้นฐาน"]</a>
                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
-                            <a class="dropdown-item" href="#">@Localizer["1.1 บันทึกข้อมูลมิติ"]</a>
-                            <a class="dropdown-item" href="#">@Localizer["1.2 บันทึกข้อมูลการวัด"]</a>
-                            <a class="dropdown-item" href="#">@Localizer["1.3 บันทึกข้อมูลตัวชี้วัด"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["แผนปฏิบัติราชการ"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["เป้าหมาย/ประมาณการ"]</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">@Localizer["บันทึกผลการปฏิบัติราชการ"]</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+                            <a class="dropdown-item" href="#">@Localizer["1.1 ผลการปฏิบัติราชการของ กอง สำนัก ศูนย์"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["1.2 ผลการปฏิบัติราชการของ สภ./สท."]</a>
+                            <a class="dropdown-item" href="#">@Localizer["1.3 แก้ไขผลการปฏิบัติราชการ"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["1.4 ตรวจสอบและแก้ไขผลรายตัวชี้วัด รายหน่วยงาน (เฉพาะหน่วยควบคุม)"]</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">@Localizer["รายงาน"]</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+                            <a class="dropdown-item" href="#">@Localizer["รายงานผลการปฏิบัติงานของกรมสรรพากร"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["รายงานผลการปฏิบัติงานของ กอง สำนัก ศูนย์"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["รายงานผลการปฏิบัติงานของ สภ.1-12"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["รายงานผลการปฏิบัติงานของ สท กทม 1-30 (30 สท)"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["รายงานผลการปฏิบัติงานของ สท ต่างจังหวัด (89 สท.)"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["รายงานผลการปฏิบัติงานของ สท ทั่วประเทศ (119 สท.)"]</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">@Localizer["จัดการผู้ใช้"]</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+                            <a class="dropdown-item" href="#">@Localizer["ผู้ใช้งาน"]</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">@Localizer["2.1 บันทึกประมาณการ"]</a>
-                            <a class="dropdown-item" href="#">@Localizer["2.2 บันทึกผลการประเมิน"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["สิทธิ์การใช้งาน"]</a>
                         </div>
                     </li>
                 </ul>
@@ -54,7 +77,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-6">
-                    @Localizer["&copy; 2561 - EPES กรมสรรพากร"]
+                    @Localizer["&copy; 2562 - (Electronic Performance Evaluation System : EPES) กรมสรรพากร"]
                 </div>
                 <div class="col-lg-6 text-lg-right">
                     @await Html.PartialAsync("_SelectLanguagePartial")

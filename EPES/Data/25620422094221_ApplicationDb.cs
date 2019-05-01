@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EPES.Data.Migrations
+namespace EPES.Data
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class ApplicationDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,21 @@ namespace EPES.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Offices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Code = table.Column<string>(type: "nvarchar(8)", nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Remark = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Offices", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,8 +108,8 @@ namespace EPES.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -138,8 +153,8 @@ namespace EPES.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -151,6 +166,35 @@ namespace EPES.Data.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PointOfEvaluations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Unit = table.Column<string>(nullable: true),
+                    WeightForHQ = table.Column<decimal>(type: "decimal(7, 4)", nullable: false),
+                    WeightForSP = table.Column<decimal>(type: "decimal(7, 4)", nullable: false),
+                    WeightForST = table.Column<decimal>(type: "decimal(7, 4)", nullable: false),
+                    Rate1 = table.Column<decimal>(type: "decimal(18, 4)", nullable: false),
+                    Rate2 = table.Column<decimal>(type: "decimal(18, 4)", nullable: false),
+                    Rate3 = table.Column<decimal>(type: "decimal(18, 4)", nullable: false),
+                    Rate4 = table.Column<decimal>(type: "decimal(18, 4)", nullable: false),
+                    Rate5 = table.Column<decimal>(type: "decimal(18, 4)", nullable: false),
+                    AuditOfficeId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PointOfEvaluations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PointOfEvaluations_Offices_AuditOfficeId",
+                        column: x => x.AuditOfficeId,
+                        principalTable: "Offices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -191,6 +235,11 @@ namespace EPES.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PointOfEvaluations_AuditOfficeId",
+                table: "PointOfEvaluations",
+                column: "AuditOfficeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,10 +260,16 @@ namespace EPES.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "PointOfEvaluations");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Offices");
         }
     }
 }
